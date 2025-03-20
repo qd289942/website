@@ -3,14 +3,15 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  template: `
+    <app-header></app-header>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+    <app-footer></app-footer>
+  `,
+  styles: [`
+    .content { margin: 60px 20px; }
+  `]
 })
-export class AppComponent {
-  title = 'mean-client';
-
-  showAlert() {
-    alert('Hello from Angular!');
-  }
-}
-
+export class AppComponent { }
