@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product, ProductService } from '../product.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-detail',
@@ -9,14 +10,15 @@ import { Product, ProductService } from '../product.service';
     <div *ngIf="product">
       <h2>{{product.name}}</h2>
       <img [src]="product.imageUrl" alt="{{product.name}}">
-      <p>Price：{{product.price | currency}}</p>
+      <p>Price: {{product.price | currency}}</p>
       <p>{{product.description}}</p>
       <button (click)="addToCart(product)">Add to Cart</button>
     </div>
   `,
   styles: [`
     img { max-width: 100%; }
-  `]
+  `],
+  imports: [CommonModule],
 })
 export class ProductDetailComponent implements OnInit {
   product: Product | undefined;

@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product, ProductService } from '../product.service';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-list',
@@ -19,7 +20,9 @@ import { Router } from '@angular/router';
     .product-list { display: flex; flex-wrap: wrap; gap: 16px; }
     .product-card { border: 1px solid #ccc; padding: 16px; cursor: pointer; width: 200px; }
     .product-card img { width: 100%; height: auto; }
-  `]
+  `],
+  standalone: true,
+  imports: [CommonModule], 
 })
 export class ProductListComponent implements OnInit {
   products: Product[] = [];

@@ -12,8 +12,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ProductListComponent, ProductDetailComponent],
-  imports: [CommonModule, RouterModule.forChild(routes)],
+  imports: [CommonModule, RouterModule.forChild(routes), ProductListComponent, ProductDetailComponent],
   providers: [ProductService]
 })
 export class ProductModule { }
