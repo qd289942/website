@@ -21,8 +21,18 @@ export class ProductService {
     return of(this.products);
   }
 
-  getProductById(id: number): Observable<Product | undefined> {
+  /*getProductById(id: number): Observable<Product | undefined> {
     const product = this.products.find(p => p.id === id);
     return of(product);
+  }*/
+  getProductById(id: number): Observable<Product> {
+    const mockProduct: Product = {
+      id,
+      name: 'Sample Product',
+      imageUrl: 'https://via.placeholder.com/150',
+      price: 99.99,
+      description: 'This is a sample product.'
+    };
+    return of(mockProduct);
   }
 }
