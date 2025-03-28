@@ -1,21 +1,4 @@
-/* src/app/app.component.css */
-h1 {
-  color: blue;
+.content {
+  padding: 20px;
+  margin-top: 60px;
 }
-
-p {
-  font-size: 18px;
-}
-
-button {
-  padding: 10px 20px;
-  background-color: green;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: darkgreen;
-}
-

@@ -1,38 +1,22 @@
 // src/modules/product/product.service.ts
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { Product } from './product';
 
-export interface Product {
-  id: number;
-  name: string;
-  price: number;
-  imageUrl: string;
-  description: string;
-}
 
 @Injectable()
 export class ProductService {
   private products: Product[] = [
-    { id: 1, name: 'product 1', price: 100, imageUrl: 'assets/product1.jpg', description: '' },
-    { id: 2, name: 'product 2', price: 200, imageUrl: 'assets/product2.jpg', description: '' }
+    { id: 1, name: 'product 1', price: 100, imageUrl: 'assets/product_1.jpeg', description: 'This is the first product.' },
+    { id: 2, name: 'product 2', price: 200, imageUrl: 'assets/product_2.jpeg', description: 'This is the second product.' }
   ];
 
   getProducts(): Observable<Product[]> {
     return of(this.products);
   }
 
-  /*getProductById(id: number): Observable<Product | undefined> {
+  getProductById(id: number): Observable<Product | undefined> {
     const product = this.products.find(p => p.id === id);
     return of(product);
-  }*/
-  getProductById(id: number): Observable<Product> {
-    const mockProduct: Product = {
-      id,
-      name: 'Sample Product',
-      imageUrl: 'https://via.placeholder.com/150',
-      price: 99.99,
-      description: 'This is a sample product.'
-    };
-    return of(mockProduct);
   }
 }
