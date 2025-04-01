@@ -9,13 +9,13 @@ import { FooterComponent } from './footer/footer.component';
   standalone: true,  // Marking this as a standalone component
   imports: [RouterModule, HeaderComponent, FooterComponent],  // Import Standalone components
   template: `
+  <main>
     <app-header></app-header>
-    <main>
       <section class="content">
         <router-outlet></router-outlet>
       </section>
-    </main>
     <app-footer></app-footer>
+  </main>
   `,
   styleUrls: ['./app.component.css']
 })

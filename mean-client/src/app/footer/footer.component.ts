@@ -1,17 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
   imports: [],
   template: `
     <footer>
-      <p>&copy; 2025 E-Commerce Company</p>
+      <div class="footer-content">
+        <p>© 2025 E-Commerce Company</p>
+        <p class="current-date">{{ currentDate }}</p>
+      </div>
     </footer>
   `,
-  styles: [`
-    footer { background: #f8f8f8; text-align: center; padding: 10px; position: fixed; bottom: 0; width: 100%; }
-  `]
+  styleUrls: ['./footer.component.css'],
+  standalone: true,
 })
 export class FooterComponent {
+  currentDate: string = '';
+
+  ngOnInit(): void {
+    const today = new Date();
+    this.currentDate = today.toLocaleDateString();
+  }
 
 }

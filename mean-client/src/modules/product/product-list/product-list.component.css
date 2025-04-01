@@ -1,4 +1,58 @@
-.product-list { display: flex; flex-wrap: wrap; gap: 16px; }
-.product-card { border: 1px solid #ccc; padding: 16px; cursor: pointer; width: 200px; }
-.product-card img { width: 100%; height: auto; }
-.empty-state { text-align: center; font-size: 18px; color: #888; margin-top: 20px; }
+/* 产品列表样式 */
+.product-list {
+    display: flex; /* 使用 Flexbox 布局 */
+    flex-wrap: wrap; /* 自动换行 */
+    justify-content: center; /* 居中对齐 */
+    gap: 20px; /* 卡片之间的间距 */
+    padding: 20px; /* 列表的内边距 */
+  }
+  
+  /* 产品卡片样式 */
+  .product-card {
+    border: 1px solid #ddd; /* 边框 */
+    border-radius: 10px; /* 圆角 */
+    padding: 16px; /* 内边距 */
+    cursor: pointer; /* 鼠标悬停时显示手型 */
+    width: 250px; /* 固定宽度 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 添加阴影 */
+    transition: transform 0.3s, box-shadow 0.3s; /* 添加过渡效果 */
+    background-color: #fff; /* 白色背景 */
+  }
+  
+  .product-card:hover {
+    transform: translateY(-5px); /* 悬停时上移 */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* 悬停时阴影加深 */
+  }
+  
+  /* 产品图片样式 */
+  .product-card img {
+    width: 100%; /* 图片宽度占满卡片 */
+    height: 150px; /* 固定高度 */
+    object-fit: cover; /* 确保图片不会变形 */
+    border-radius: 5px; /* 图片圆角 */
+    margin-bottom: 10px; /* 图片与文字之间的间距 */
+  }
+  
+  /* 产品标题样式 */
+  .product-card h3 {
+    font-size: 18px; /* 标题字体大小 */
+    margin: 10px 0; /* 标题的上下间距 */
+    color: #333; /* 深色文字 */
+    text-align: center; /* 居中对齐 */
+  }
+  
+  /* 产品描述和价格样式 */
+  .product-card p {
+    font-size: 14px; /* 描述字体大小 */
+    color: #555; /* 浅灰色文字 */
+    margin: 5px 0; /* 描述的上下间距 */
+    text-align: center; /* 居中对齐 */
+  }
+  
+  /* 空状态样式 */
+  .empty-state {
+    text-align: center; /* 居中对齐 */
+    font-size: 18px; /* 字体大小 */
+    color: #888; /* 浅灰色文字 */
+    margin-top: 20px; /* 顶部间距 */
+  }

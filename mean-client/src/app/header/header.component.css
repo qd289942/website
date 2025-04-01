@@ -1,0 +1,60 @@
+/* 页眉样式 */
+header {
+  background-color: #333; /* 深色背景 */
+  color: #fff; /* 白色文字 */
+  padding: 10px 20px; /* 内边距 */
+  display: flex; /* 使用 Flexbox 布局 */
+  justify-content: space-between; /* 左右对齐 */
+  align-items: center; /* 垂直居中 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 添加阴影 */
+}
+
+/* 导航栏样式 */
+.navbar {
+  display: flex; /* 水平排列导航链接和 Logo */
+  justify-content: space-between; /* 左右对齐 */
+  align-items: center; /* 垂直居中 */
+  width: 100%; /* 占满页眉宽度 */
+}
+
+.nav-links {
+  display: flex; /* 水平排列导航链接 */
+  gap: 15px; /* 链接之间的间距 */
+}
+
+nav a {
+  color: #fff; /* 白色文字 */
+  text-decoration: none; /* 去掉下划线 */
+  font-weight: bold; /* 加粗文字 */
+  padding: 5px 10px; /* 内边距 */
+  border-radius: 5px; /* 圆角 */
+  transition: background-color 0.3s, color 0.3s; /* 添加过渡效果 */
+}
+
+nav a:hover {
+  background-color: #555; /* 悬停时背景变为浅灰色 */
+  color: #fff; /* 保持文字为白色 */
+}
+
+/* Logo 样式 */
+.logo {
+  height: 40px; /* 固定 Logo 高度 */
+  width: auto; /* 宽度自适应 */
+  margin-left: auto; /* 将 Logo 推到右侧 */
+}
+
+/* 响应式设计：小屏幕时导航栏居中 */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column; /* 垂直排列 */
+    text-align: center; /* 居中对齐 */
+  }
+
+  .navbar {
+    flex-direction: column; /* 垂直排列导航链接和 Logo */
+  }
+
+  .logo {
+    margin: 10px 0; /* 增加上下间距 */
+  }
+}

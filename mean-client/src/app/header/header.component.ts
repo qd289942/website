@@ -5,20 +5,21 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-header',
   imports: [CommonModule, RouterModule],
+  standalone: true,
   template: `
     <header>
-      <nav>
-        <a [routerLink]="['/products']">Products</a>
-        <a [routerLink]="['/cart']">Cart</a>
-        <a [routerLink]="['/user/login']">Login</a>
-        <a [routerLink]="['/user/register']">Register</a>
+      <nav class="navbar">
+        <div class="nav-links">
+          <a [routerLink]="['/products']">Products</a>
+          <a [routerLink]="['/cart']">Cart</a>
+          <a [routerLink]="['/user/login']">Login</a>
+          <a [routerLink]="['/user/register']">Register</a>
+        </div>
+        <img src="/assets/logo.png" alt="Company Logo" class="logo" />
       </nav>
     </header>
   `,
-  styles: [`
-    header { background: #333; color: #fff; padding: 10px; }
-    nav a { color: #fff; margin-right: 15px; text-decoration: none; }
-  `]
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
 

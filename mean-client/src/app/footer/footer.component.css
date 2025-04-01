@@ -1,0 +1,25 @@
+/* Footer 样式 */
+footer {
+    background: #f8f8f8; /* 浅灰色背景 */
+    text-align: center; /* 默认居中对齐 */
+    padding: 10px; /* 内边距 */
+    position: fixed; /* 固定在页面底部 */
+    bottom: 0; /* 距底部 0 */
+    width: 100%; /* 占满宽度 */
+    display: flex; /* 使用 Flexbox 布局 */
+    justify-content: center; /* 内容居中对齐 */
+    align-items: center; /* 垂直居中 */
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* 添加顶部阴影 */
+    gap: 20px; /* 内容之间的间距 */
+  }
+  
+  .footer-content {
+    display: flex;
+    align-items: center; /* 垂直居中 */
+    gap: 10px; /* 日期和版权信息之间的间距 */
+  }
+  
+  .current-date {
+    font-size: 14px; /* 日期字体大小 */
+    color: #555; /* 浅灰色文字 */
+  }

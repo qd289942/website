@@ -1,0 +1,74 @@
+/* 标题 */
+.dialog-content h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #222;
+    text-align: center;
+  }
+  
+  /* 评论项 */
+  .comment {
+    background-color: #f9f9f9;
+    padding: 16px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* 用户名 */
+  .comment-author {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 4px;
+  }
+  
+  /* 评论文本 */
+  .comment-text {
+    font-size: 14px;
+    color: #555;
+    margin-top: 6px;
+  }
+  
+  /* 时间戳 */
+  .comment-timestamp {
+    font-size: 12px;
+    color: #999;
+    margin-top: 6px;
+    text-align: right;
+  }
+  
+  /* 输入框 */
+  .add-comment {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+  }
+  
+  .add-comment textarea {
+    flex: 1;
+    height: 80px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    resize: none;
+    font-size: 14px;
+  }
+  
+  /* 提交按钮 */
+  .add-comment button {
+    padding: 10px 16px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .add-comment button:hover {
+    background-color: #388e3c;
+  }
