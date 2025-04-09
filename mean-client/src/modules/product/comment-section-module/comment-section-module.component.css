@@ -9,6 +9,9 @@
   
   /* 评论项 */
   .comment {
+    display: flex; /* 使用 flexbox 布局 */
+    justify-content: space-between; /* 将内容和按钮分开 */
+    align-items: center; /* 垂直居中对齐 */
     background-color: #f9f9f9;
     padding: 16px;
     margin-bottom: 12px;
@@ -35,8 +38,26 @@
   .comment-timestamp {
     font-size: 12px;
     color: #999;
-    margin-top: 6px;
-    text-align: right;
+    margin-top: 8px; /* 与评论内容保持间距 */
+    text-align: left; /* 左对齐 */
+  }
+
+  /* 评论内容 */
+  .comment div {
+    flex: 1; /* 评论内容占据剩余空间 */
+  }
+
+  /* 删除按钮 */
+  .comment button {
+    padding: 6px 12px;
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
   }
   
   /* 输入框 */

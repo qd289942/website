@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
       No products available.
     </div>
     <div class="product-list" *ngIf="products.length > 0">
-      <div *ngFor="let product of products" class="product-card" (click)="goToDetail(product.id)">
+      <div *ngFor="let product of products" class="product-card" (click)="goToDetail(product._id)">
         <img [src]="product.imageUrl" alt="{{product.name}}">
         <h3>{{product.name}}</h3>
         <p>price：{{product.price | currency}}</p>
@@ -31,7 +31,11 @@ export class ProductListComponent implements OnInit {
   ngOnInit(): void {
     this.productService.getProducts().subscribe(data => this.products = data);
   }
-  goToDetail(id: number): void {
-    this.router.navigate(['/products', id]);
+  goToDetail(productId: string | undefined) {
+    if (productId) {
+      this.router.navigate(['/products', productId]);
+    } else {
+      console.error('Product ID is undefined');
+    }
   }
 }

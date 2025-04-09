@@ -40,17 +40,13 @@ import { CommentSectionComponent } from '../comment-section-module/comment-secti
       <app-comment-section
         *ngIf="showCommentsDialog"
         [comments]="comments"
+        [productId]="product!._id"
         (commentAdded)="onCommentAdded($event)"
+        (commentDeleted)="onCommentDeleted($event)"
       ></app-comment-section>
       <button class="close-dialog" (click)="closeCommentsDialog()">Close</button>
     </div>
   </div>
-
-    <app-comment-section
-      *ngIf="showComments"
-      [comments]="comments"
-      (commentAdded)="onCommentAdded($event)"
-    ></app-comment-section>
   `,
   styleUrls: ['./product-detail.component.css'],
   standalone: true,
@@ -60,17 +56,27 @@ import { CommentSectionComponent } from '../comment-section-module/comment-secti
 export class ProductDetailComponent implements OnInit {
   product: Product | undefined;
   comments: Comment[] = [];
+  newComment: Comment = { author: '', text: '', timestamp: new Date() }; // 新评论
   showComments: boolean = false; // 控制评论区显示
   showCommentsDialog: boolean = false; // 控制对话框显示
-  // selectedFilter: string = 'all'; // 当前选中的过滤器
 
   productService: ProductService = inject(ProductService);
   route: ActivatedRoute = inject(ActivatedRoute);
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.productService.getProductById(id).subscribe(data => (this.product = data));
-    this.productService.getComments().subscribe(data => (this.comments = data));
+    const productId = this.route.snapshot.paramMap.get('id'); // 获取字符串类型的 id
+    if (productId) {
+      this.productService.getProductById(productId).subscribe(
+        (data) => (this.product = data),
+        (error) => console.error('Failed to load product:', error)
+      );
+      this.productService.getComments(productId).subscribe(
+        (data) => (this.comments = data),
+        (error) => console.error('Failed to load comments:', error)
+      );
+    } else {
+      console.error('Product ID is undefined');
+    }
   }
 
   addToCart(product: Product): void {
@@ -82,7 +88,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   toggleComments(): void {
-    this.showCommentsDialog = true; // 打开对话框
+    this.showCommentsDialog = !this.showCommentsDialog; // 打开对话框
   }
 
   closeCommentsDialog(): void {
@@ -94,14 +100,11 @@ export class ProductDetailComponent implements OnInit {
   }
 
   onCommentAdded(newComment: Comment): void {
+    console.log('New comment added:', newComment);
     this.comments.push(newComment);
   }
-  /*filteredComments(): Comment[] {
-    if (this.selectedFilter === 'recent') {
-      return [...this.comments].sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
-    } else if (this.selectedFilter === 'oldest') {
-      return [...this.comments].sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime());
-    }
-    return this.comments; // 默认显示所有评论
-  }*/
+  onCommentDeleted(deletedComment: Comment): void {
+    console.log('Comment deleted:', deletedComment);
+    this.comments = this.comments.filter(comment => comment._id !== deletedComment._id);
+  }
 }

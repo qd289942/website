@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
         <div class="nav-links">
           <a [routerLink]="['/products']">Products</a>
           <a [routerLink]="['/cart']">Cart</a>
-          <a [routerLink]="['/user/login']">Login</a>
+          <a [routerLink]="['/login']">Login</a>
           <a [routerLink]="['/user/register']">Register</a>
         </div>
         <img src="/assets/logo.png" alt="Company Logo" class="logo" />

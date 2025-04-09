@@ -1,5 +1,5 @@
 export interface Comment {
-    id: number;
+    _id?: string; // Optional ID for the comment
     author: string;
     text: string;
     timestamp: Date;

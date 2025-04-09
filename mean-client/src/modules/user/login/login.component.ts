@@ -1,37 +1,64 @@
-// src/modules/user/login/login.component.ts
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../user.service';
+import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
+  imports: [CommonModule, FormsModule],
   template: `
-    <div>
+    <div class="login-container">
       <h2>Login</h2>
-      <form (ngSubmit)="onLogin()">
-        <label>
-          Username:
-          <input type="text" [(ngModel)]="username" name="username" required>
-        </label>
-        <br>
-        <label>
-          Password:
-          <input type="password" [(ngModel)]="password" name="password" required>
-        </label>
-        <br>
-        <button type="submit">Login</button>
+      <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            [(ngModel)]="username"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            [(ngModel)]="password"
+            required
+          />
+        </div>
+        <button type="submit" [disabled]="!loginForm.valid">Login</button>
       </form>
+      <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
     </div>
-  `
+  `,
+  styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  username = '';
-  password = '';
-  constructor(private userService: UserService, private router: Router) {}
+  username: string = '';
+  password: string = '';
+  errorMessage: string | null = null;
+
+  constructor(private http: HttpClient, private router: Router) {}
+
   onLogin(): void {
-    this.userService.login(this.username, this.password).subscribe(user => {
-      console.log('User:', user);
-      this.router.navigate(['/user/profile']);
-    });
+    const loginData = { username: this.username, password: this.password };
+
+    this.http.post<{ token: string }>('http://localhost:3000/api/login', loginData).subscribe(
+      (response) => {
+        localStorage.setItem('token', response.token); // 存储 JWT
+        console.log('Login successful');
+        console.log('Token:', response.token);
+        this.router.navigate(['/products']); // 登录成功后跳转到产品页面
+      },
+      (error) => {
+        this.errorMessage = 'Invalid username or password';
+        console.error('Login failed:', error);
+      }
+    );
   }
 }
