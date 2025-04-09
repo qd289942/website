@@ -48,11 +48,11 @@ export class LoginComponent {
   onLogin(): void {
     const loginData = { username: this.username, password: this.password };
 
-    this.http.post<{ token: string }>('http://localhost:3000/api/login', loginData).subscribe(
+    this.http.post<{ token: string; username:string }>('http://localhost:3000/api/login', loginData).subscribe(
       (response) => {
         localStorage.setItem('token', response.token); // 存储 JWT
+        localStorage.setItem('username', response.username);
         console.log('Login successful');
-        console.log('Token:', response.token);
         this.router.navigate(['/products']); // 登录成功后跳转到产品页面
       },
       (error) => {

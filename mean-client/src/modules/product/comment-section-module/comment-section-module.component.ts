@@ -42,8 +42,10 @@ export class CommentSectionComponent {
 
   addComment(): void {
     if (this.newComment.trim()) {
+      const username = localStorage.getItem('username') || 'Anonymous'; // 获取当前用户名
+      console.log('Username:', username);
       const newComment: Comment = {
-        author: 'Anonymous',
+        author: username,
         text: this.newComment,
         timestamp: new Date(),
       };

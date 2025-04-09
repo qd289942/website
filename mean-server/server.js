@@ -1,11 +1,11 @@
 const express = require('express');
-// const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const path = require('path');
 const Product = require('./models/Product');
 const Comment = require('./models/Comment');
+const User = require('./models/User');
 
 const corsOptions = {
   origin: 'http://localhost:4200', // 允许的前端地址
@@ -28,8 +28,8 @@ app.use('/api', (req, res, next) => {
 
 
 const users = [
-  { username: 'admin', password: 'password', userId: 1 },
-  { username: 'user', password: '123456', userId: 2 },
+  { username: 'admin', password: 'password'},
+  { username: 'user', password: '123456'},
 ];
 
 // 提供静态文件服务
@@ -45,7 +45,6 @@ app.get('/api/products', async (req, res) => {
   try {
     const products = await Product.find(); // 从数据库中获取所有产品
     res.json(products);
-    res.json({ message: 'Authorized access', user: req.user });
     console.log('Products:', products);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -62,7 +61,6 @@ if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     const product = await Product.findById(req.params.id); // 根据 ID 获取产品
     if (product) {
       res.json(product);
-      res.json({ message: 'Authorized access', user: req.user });
     } else {
       res.status(404).json({ message: 'Product not found' });
     }
@@ -80,7 +78,6 @@ app.get('/api/products/:id/comments', async (req, res) => {
     }
     const comments = await Comment.find({ productId });
     res.json(comments);
-    res.json({ message: 'Authorized access', user: req.user});
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -139,17 +136,30 @@ app.delete('/api/products/:productId/comments/:commentId', async (req, res) => {
 });
 
 // 用于验证用户身份并返回 JWT
-app.post('/api/login', (req, res) => {
+app.post('/api/login', async (req, res) => {
   const { username, password } = req.body;
-  const user = users.find((u) => u.username === username && u.password === password);
 
-  if (user) {
+  try {
+    // 查找用户
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid username or password' });
+    }
+
+    // 验证密码
+    const isMatch = await user.comparePassword(password);
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Invalid username or password' });
+    }
+
+    // 生成 JWT
     const token = jwt.sign({ userId: user.userId, username: user.username }, 'your-secret-key', {
       expiresIn: '30m', // 令牌有效期
     });
-    res.json({ token });
-  } else {
-    res.status(401).json({ message: 'Invalid username or password' });
+
+    res.json({ token, username: user.username });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message });
   }
 });
 
@@ -203,6 +213,16 @@ const clearProducts = async () => {
   }
 };
 
+// 清空 users 集合
+const clearUsers = async () => {
+  try {
+    await User.deleteMany({});
+    console.log('All users have been deleted.');
+  } catch (err) {
+    console.error('Error clearing users:', err);
+  }
+};
+
 // 种子数据函数
 const seedProducts = async () => {
   const products = [
@@ -250,7 +270,26 @@ const seedComments = async () => {
   console.log('Comments seeded');
 };
 
+// 种子用户数据
+const seedUsers = async () => {
+  const users = [
+    { username: 'admin', password: 'password', userId: 1 },
+    { username: 'user', password: '123456', userId: 2 },
+  ];
+
+  for (const userData of users) {
+    const existingUser = await User.findOne({ username: userData.username });
+    if (!existingUser) {
+      const user = new User(userData);
+      await user.save();
+      console.log(`User ${user.username} seeded`);
+    }
+  }
+};
+
 //clearProducts();
 //seedProducts();
-clearComments()
-seedComments();
+//clearComments()
+//seedComments();
+clearUsers();
+seedUsers();
